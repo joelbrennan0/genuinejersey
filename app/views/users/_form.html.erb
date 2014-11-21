@@ -29,7 +29,22 @@
   </div>
   <div class="field">
     <%= f.label :parish %><br>
-    <%= f.text_field :parish %>
+    <select name="user[parish]">
+    <option></option>
+    <option>Saint Helier</option>
+    <option>Grouville</option>
+    <option>St Brelade</option>
+    <option>St Clement</option>
+    <option>St Clement</option>
+    <option>St John</option>
+    <option>St Lawrence</option>
+    <option>St Martin</option>
+    <option>St Mary</option>
+    <option>St Ouen</option>
+    <option>St Peter</option>
+    <option>St Saviour</option>
+    <option>Trinity</option>
+    </select>
   </div>
   <div class="field">
     <%= f.label :postcode %><br>
@@ -41,7 +56,14 @@
   </div>
   <div class="field">
     <%= f.label :category %><br>
-    <%= f.text_field :category %>
+    <input id="alcohol" name="user[category]" type="checkbox" value="alcohol" />
+    <label for="alcohol">Alcohol</label>
+    <input id="art_and_craft" name="user[category]" type="checkbox" value="art_and_craft" />
+    <label for="art_and_craft">Art and Craft</label>
+    <input id="cakes" name="user[category]" type="checkbox" value="cakes" />
+    <label for="cakes">Cakes and Home Baking</label>
+    <input id="confectionary" name="user[category]" type="checkbox" value="confectionary" />
+    <label for="confectionary">Confectionary</label>
   </div>
   <div class="field">
     <%= f.label :picture %><br>

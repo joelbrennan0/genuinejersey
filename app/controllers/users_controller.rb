@@ -76,4 +76,5 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:latitude, :longitude, :title, :address, :parish, :postcode, :description, :category, :picture)
     end
+    
 end
