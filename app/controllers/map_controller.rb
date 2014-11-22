@@ -8,7 +8,7 @@ class MapController < ApplicationController
     @hash = Gmaps4rails.build_markers(@users) do |user, marker|
     marker.lat user.latitude
     marker.lng user.longitude
-    marker.infowindow user.title + "<br>" + user.description + "<br>" + "Category:  " + user.category
+    marker.infowindow user.title + "<br>" + user.description + "<br>" + "Category:  " #+ user.category
    end
   end
 
@@ -74,7 +74,7 @@ class MapController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:latitude, :longitude, :title, :address, :parish, :postcode, :description, :category, :picture)
+      params.require(:user).permit(:latitude, :longitude, :title, :address, :parish, :postcode, :description, :picture) #:category
     end
 end
 
