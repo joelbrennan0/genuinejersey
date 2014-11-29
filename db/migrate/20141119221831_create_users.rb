@@ -8,7 +8,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :parish
       t.string :postcode
       t.text :description
-      t.string :category
       t.string :picture
 
       t.timestamps

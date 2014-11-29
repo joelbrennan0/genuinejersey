@@ -47,12 +47,20 @@
     </select>
   </div>
   <div class="field">
-    <%= f.label :postcode %><br>
+    Road name or <%= f.label :postcode %><br>(if co-ordianates are known leave this field blank)<br>
     <%= f.text_field :postcode %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
     <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= hidden_field_tag "user[category_ids][]", nil %>
+    <% Category.all.each do |category| %>
+      <%= check_box_tag "user[category_ids][]", category.id,
+       @user.category_ids.include?(category.id), id: dom_id(category) %>
+      <%= label_tag dom_id(category), category.name %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :picture %><br>
