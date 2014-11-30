@@ -8,7 +8,8 @@ class MapController < ApplicationController
     @hash = Gmaps4rails.build_markers(@users) do |user, marker|
     marker.lat user.latitude
     marker.lng user.longitude
-    marker.infowindow user.title + "<br>" + user.picture + "<br>" + user.description + "<br>" + "Category:  " #+  user.category
+    marker.infowindow user.title + "<br>" + 
+    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
    end
   end
 
@@ -45,6 +46,7 @@ class MapController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @user.category_ids=params[:user][:category_ids]
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
