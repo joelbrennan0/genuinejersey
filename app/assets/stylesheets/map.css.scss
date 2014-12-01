@@ -5,3 +5,13 @@ body {
 	margin: 0;
 	padding: 0;
 }
+#admin-btn {
+	visibility: visible !important;
+	position: absolute;
+	top: 40px;
+	right: 40px;
+	z-index: 9000;
+}
+#admin-nav {
+	visibility: hidden !important;
+}
