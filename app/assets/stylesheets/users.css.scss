@@ -11,13 +11,13 @@ table, td, th, tr {
 	border: 1px solid #c4c4c4;
 	padding: 5px;
 	border-collapse: collapse;
-	text-transform: capitalize
+	text-transform: capitalize;
 }
 
 a {
 	font-family: 'Lato', sans-serif;
 	font-weight: normal;
-	text-transform: Capitalize;
+	text-transform: capitalize;
 }
 
 h1, .table-entry, p {
@@ -83,6 +83,7 @@ table {
 	text-decoration: none;
 	color: #fff;
 	}
+}
 .selected {
 	color: #E1190A !important;
 }
