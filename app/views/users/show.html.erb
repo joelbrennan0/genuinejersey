@@ -37,7 +37,7 @@
 
 <p>
   <strong>Categories:</strong>
-  <%= @user.category_ids %>
+  <%= @user.categories.map(&:name).join(', ') %>
 </p>
 
 <p>

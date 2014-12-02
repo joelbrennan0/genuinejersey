@@ -29,6 +29,7 @@ gem 'spring',        group: :development
 gem 'geocoder'
 gem 'gmaps4rails'
 gem "tzinfo-data"
+gem 'nav_lynx'
 #gem 'strong_parameters'
 
 # Use ActiveModel has_secure_password
