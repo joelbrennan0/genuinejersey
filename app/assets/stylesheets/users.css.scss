@@ -51,11 +51,12 @@ table {
 }
 
 #map {
-	position: fixed !important;
+	clear: both;
+	/* position: fixed !important;
     bottom: 0px !important;
     left: 0px !important;
     right: 0px !important;
-    margin-bottom: 0px !important;
+    margin-bottom: 0px !important; */
 }
 
 .btn {
