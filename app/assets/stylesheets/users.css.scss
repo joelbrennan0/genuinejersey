@@ -41,6 +41,11 @@ h1, .table-entry, p {
 	}
 }
 
+.container {
+	max-width: 500px;
+	width: 50%;
+}
+
 table {
 	margin: 50px;
 }
@@ -51,7 +56,7 @@ table {
 }
 
 #map {
-	clear: both;
+	float: right;
 	/* position: fixed !important;
     bottom: 0px !important;
     left: 0px !important;
@@ -89,4 +94,8 @@ table {
 }
 .selected {
 	color: #E1190A !important;
+}
+
+.edit-container {
+	margin-left: 50px;
 }

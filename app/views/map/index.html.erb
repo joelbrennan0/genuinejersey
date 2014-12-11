@@ -20,6 +20,24 @@ function showValue(newValue)
 </script>
 <p style="float: left; width: 50%; margin-top: 0">3km</p><p style="float: right; margin-top: 0;">15km</p>
 	</div>
+	<div id="filter-3">
+	 <h3>Filter by Parish</h3>
+            <select class='select'>
+              <option value=''>Any</option>
+              <option value='1'>St. Helier</option>
+              <option value='2'>St. John</option>
+              <option value='3'>St. Mary</option>
+              <option value='4'>St. Brelade</option>
+              <option value='5'>St. Martin</option>
+              <option value='6'>St. Ouen</option>
+              <option value='7'>St. Peter</option>
+              <option value='8'>St. Saviour</option>
+              <option value='9'>St. Clement</option>
+              <option value='10'>St. Lawrence</option>
+              <option value='11'>Trinity</option>
+              <option value='12'>Grouville</option>
+            </select>
+    </div>
 	<div id="filter-2">
 		<h3>Filter by Products</h3>
 		<div id="col-1">
@@ -77,24 +95,6 @@ function showValue(newValue)
 				</div>
 		</div>
 	</div>
-	<div id="filter-3">
-	 <h3>Filter by Parish</h3>
-            <select class='select'>
-              <option value=''>Any</option>
-              <option value='1'>St. Helier</option>
-              <option value='2'>St. John</option>
-              <option value='3'>St. Mary</option>
-              <option value='4'>St. Brelade</option>
-              <option value='5'>St. Martin</option>
-              <option value='6'>St. Ouen</option>
-              <option value='7'>St. Peter</option>
-              <option value='8'>St. Saviour</option>
-              <option value='9'>St. Clement</option>
-              <option value='10'>St. Lawrence</option>
-              <option value='11'>Trinity</option>
-              <option value='12'>Grouville</option>
-            </select>
-            </div>
 	</div>
 	</div>
 </div>
@@ -150,7 +150,17 @@ p {
 	padding-bottom: 50px;
 }
 
+.btn {
+	cursor: pointer;
+	background: #333;
+	border: 0;
+	font-family: 'Montserrat', sans-serif !important;
+	font-size: 1em;
+	border-bottom: 2px solid #f2f2f2;
+}
+
 #admin-btn {
+	padding: 10px;
 	display: block;
 	position: absolute;
 	top: 40px;
@@ -208,7 +218,7 @@ input[type='range'] {
 }
 
 #filter-3 {
-	margin-top: 40px;
+	margin-bottom: 40px;
 }
 
 .select {
