@@ -9,9 +9,9 @@
 	<h2>Filter Vendors</h2>
 	<div>
 	<div id="content">
-	<h3 style="display: inline;">Around Me (</h3><div style="display: inline; margin: 0 auto;"><h3 id="range" style="display: inline;">3</h3><h4 style="display: inline;">)</h4></div>
+	<h3 style="display: inline;">Around Me (</h3><div style="display: inline; margin: 0 auto;"><h3 id="range" style="display: inline;">1</h3><h4 style="display: inline;">)km</h4></div>
 	<div id="filter-1">
-		<input type="range" min="3" max="15" value="0" step="3" onchange="showValue(this.value)" style="width:100%"/>
+		<input type="range" min="1" max="15" value="0" step="1" onchange="showValue(this.value)" style="width:100%" autocomplete="off"/>
 <script type="text/javascript">
     var range = document.getElementById("range");
     var filter1 = document.getElementById("filter-1");
@@ -22,7 +22,7 @@ function showValue(newValue)
 	range.innerHTML=newValue;
 }
 </script>
-<p style="float: left; width: 50%; margin-top: 0">3km</p><p style="float: right; margin-top: 0;">15km</p>
+<p style="float: left; width: 50%; margin-top: 0">1km</p><p style="float: right; margin-top: 0;">15km</p>
 	</div>
 	<div id="filter-3">
 	 <h3>Filter by Parish</h3>
