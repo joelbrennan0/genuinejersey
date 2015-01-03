@@ -12,6 +12,16 @@ class MapController < ApplicationController
     marker.infowindow user.title + "<br>" + 
     "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
    end
+
+   selected_category = params[:selected_category]
+
+   @sth = Gmaps4rails.build_markers(@users.where(:parish => "Saint Helier")) do |user, marker| 
+    marker.lat user.latitude
+    marker.lng user.longitude
+    marker.json({:parish => user.parish})
+    marker.infowindow user.title + "<br>" + 
+    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+   end
   end
 
   # GET /users/1

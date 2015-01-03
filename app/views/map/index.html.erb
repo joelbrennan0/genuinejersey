@@ -26,20 +26,20 @@ function showValue(newValue)
 	</div>
 	<div id="filter-3">
 	 <h3>Filter by Parish</h3>
-            <select class='select'>
-              <option value=''>Any</option>
-              <option value='1'>St. Helier</option>
-              <option value='2'>St. John</option>
-              <option value='3'>St. Mary</option>
-              <option value='4'>St. Brelade</option>
-              <option value='5'>St. Martin</option>
-              <option value='6'>St. Ouen</option>
-              <option value='7'>St. Peter</option>
-              <option value='8'>St. Saviour</option>
-              <option value='9'>St. Clement</option>
-              <option value='10'>St. Lawrence</option>
-              <option value='11'>Trinity</option>
-              <option value='12'>Grouville</option>
+            <select name='parish' class='select' id='parish_id'>
+              <option value='any'>Any</option>
+              <option value='stHelier'>St. Helier</option>
+              <option value='stJohn'>St. John</option>
+              <option value='stMary'>St. Mary</option>
+              <option value='stBrelade'>St. Brelade</option>
+              <option value='stMartin'>St. Martin</option>
+              <option value='stOuen'>St. Ouen</option>
+              <option value='stPeter'>St. Peter</option>
+              <option value='stSaviour'>St. Saviour</option>
+              <option value='stClement'>St. Clement</option>
+              <option value='stLawrence'>St. Lawrence</option>
+              <option value='trinity'>Trinity</option>
+              <option value='grouville'>Grouville</option>
             </select>
     </div>
 	<div id="filter-2">
@@ -117,8 +117,61 @@ function showValue(newValue)
     var circle;
     var marker;
     var drawCircle;
-
+    var e;
+    var valPar;
+    var stHelier;
   });
+
+//setting values of the selected parish
+  e = document.getElementById("parish_id");
+  valPar = e.options[e.selectedIndex].value;
+
+  document.getElementById("parish_id").addEventListener("change", function() {
+      e = document.getElementById("parish_id");
+      valPar = e.options[e.selectedIndex].value;
+  })
+//this is temporary while developing to help me see change function is called
+  $('.select').change(function() {
+    alert("change handler called!");
+  });
+
+    any = function() { 
+    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+    stHelier = function() { 
+    markers = handler.addMarkers(<%=raw @sth.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+
+
+//here I am listening for a change in the Parish filtr box and running corresponding function.
+document.getElementById("parish_id").addEventListener("change", function() {
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+  handler.bounds.extendWith(markers);
+  handler.fitMapToBounds();
+  });
+  //var map = handler.map.serviceObject;
+});
+
+
+document.getElementById("parish_id").addEventListener("change", setInterval(function() {
+  if (valPar == "any") {
+    console.log("This is working!")
+    any();
+  }
+  else if (valPar == "stHelier") {
+    console.log("This is working!")
+    stHelier();
+  }
+  else {
+    console.log("don't think it's working");
+  }
+}, 3000));
+
 
   function writeAddressName(latLng) {
     var geocoder = new google.maps.Geocoder();
