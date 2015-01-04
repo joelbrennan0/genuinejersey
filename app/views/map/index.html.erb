@@ -24,9 +24,13 @@ function showValue(newValue)
 </script>
 <p style="float: left; width: 50%; margin-top: 0">1km</p><p style="float: right; margin-top: 0;">15km</p>
 	</div>
+  <button id="showPos" onclick="showMarker();">Show my position</button>
+  <button id="hidePos" onclick="clearMarker();">Hide my position</button>
+  <button id="resetPos" onclick="deleteMarker(); geolocateUser(); delayedUpdateRadius();">Reset my position</button>
+  <%= button_to "Reset all filters", root_path, :method => "get" %>
 	<div id="filter-3">
 	 <h3>Filter by Parish</h3>
-            <select name='parish' class='select' id='parish_id'>
+            <select name='parish' class='select' id='parish_id' autocomplete='off'>
               <option value='any'>Any</option>
               <option value='stHelier'>St. Helier</option>
               <option value='stJohn'>St. John</option>
@@ -113,6 +117,7 @@ function showValue(newValue)
     handler.fitMapToBounds();
 
     // Define some variables so we can access them from anywhere
+    var map;
     var userLatLng;
     var circle;
     var marker;
@@ -120,6 +125,8 @@ function showValue(newValue)
     var e;
     var valPar;
     var stHelier;
+    var updateRadius;
+    var delayedUpdateRadius;
   });
 
 //setting values of the selected parish
@@ -136,29 +143,22 @@ function showValue(newValue)
   });
 
     any = function() { 
+    handler.removeMarkers(markers);  
     markers = handler.addMarkers(<%=raw @hash.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
     } 
-    stHelier = function() { 
+    stHelier = function() {
+    handler.removeMarkers(markers); 
     markers = handler.addMarkers(<%=raw @sth.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
     } 
 
+ 
 
-//here I am listening for a change in the Parish filtr box and running corresponding function.
+
 document.getElementById("parish_id").addEventListener("change", function() {
-  handler = Gmaps.build('Google');
-  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-  handler.bounds.extendWith(markers);
-  handler.fitMapToBounds();
-  });
-  //var map = handler.map.serviceObject;
-});
-
-
-document.getElementById("parish_id").addEventListener("change", setInterval(function() {
   if (valPar == "any") {
     console.log("This is working!")
     any();
@@ -170,7 +170,7 @@ document.getElementById("parish_id").addEventListener("change", setInterval(func
   else {
     console.log("don't think it's working");
   }
-}, 3000));
+});
 
 
   function writeAddressName(latLng) {
@@ -194,14 +194,16 @@ document.getElementById("parish_id").addEventListener("change", setInterval(func
     // var mapObject = new google.maps.Map(document.getElementById("map"));
     // console.log(mapObject);
     // console.log(handler);
-    var map = handler.map.serviceObject;
+
+   usermap = handler.map.serviceObject;
 
     // Place the marker
     marker = new google.maps.Marker({
-      map: map,
+      map: usermap,
       position: userLatLng,
-      title: 'You are here!',
-      draggable: true
+      title: 'Drag Me!',
+      draggable: true,
+      animation: google.maps.Animation.DROP,
     });
 
     drawCircle = function(){
@@ -209,8 +211,8 @@ document.getElementById("parish_id").addEventListener("change", setInterval(func
     var options = {
       center: userLatLng,
       // radius: position.coords.accuracy,
-      radius: newRadius *= 1000,
-      map: map,
+      radius: newRadius * 1000,
+      map: usermap,
       fillColor: '#333',
       fillOpacity: 0.5,
       strokeColor: '#0000',
@@ -218,17 +220,44 @@ document.getElementById("parish_id").addEventListener("change", setInterval(func
     };
 
     circle = new google.maps.Circle(options);
-    map.fitBounds(circle.getBounds());
+    usermap.fitBounds(circle.getBounds());
     circle.bindTo('center', marker, 'position');
-  };
-  drawCircle();
+    };
+
+      drawCircle();
+
+
   google.maps.event.addDomListener(filter1, 'click', updateRadius);
-  function updateRadius() {
+  };
+
+  updateRadius = function () {
     newRadius = range.innerHTML;
     circle.setRadius(newRadius *= 1000);
-    map.fitBounds(circle.getBounds());
+    usermap.fitBounds(circle.getBounds());
   }
-  };
+
+  delayedUpdateRadius = function () {
+    setTimeout(function() {updateRadius();}, 3000);
+  }
+
+  //Removing location marker and circle if user don't want it
+    function setAllMap(map) {
+      marker.setMap(map);
+    }
+    function clearMarker() {
+      circle.setMap(null);
+      setAllMap(null);
+    }
+    function showMarker() {
+      setAllMap(handler.map.serviceObject);
+      circle.setMap(handler.map.serviceObject);
+    }
+      function deleteMarker() {
+      clearMarker();
+      marker = [];
+      circle = 0;
+    }
+
 
 
   function geolocationError(positionError) {
@@ -244,7 +273,9 @@ document.getElementById("parish_id").addEventListener("change", setInterval(func
         timeout: 10 * 1000 // 10 seconds
       };
       navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, positionOptions);
-    }
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+      }
     else
       document.getElementById("error").innerHTML += "Your browser doesn't support the Geolocation API";
   }
