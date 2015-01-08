@@ -1,3 +1,4 @@
+<div class="edit-container">
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -44,6 +45,8 @@
   <strong>Picture:</strong>
   <%= @user.picture %>
 </p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+</div>
+<div class="btns">
+  <%= link_to 'Edit', edit_user_path(@user), :class => 'btn' %>
+  <%= link_to 'Back', users_path, :class => 'btn' %>
+</div>

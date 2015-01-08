@@ -5,24 +5,285 @@
   <div id="map" style='width: 100%; height: 100vh;'></div>
 </div>
 
+<div id="sidebar">
+<div id="header">
+	<h2>Filter Vendors</h2>
+	<div>
+	<div id="content">
+	<h3 style="display: inline;">Around Me (</h3><div style="display: inline; margin: 0 auto;"><h3 id="range" style="display: inline;">1</h3><h4 style="display: inline;">)km</h4></div>
+	<div id="filter-1">
+		<input type="range" min="1" max="15" value="0" step="1" onchange="showValue(this.value)" style="width:100%" autocomplete="off"/>
 <script type="text/javascript">
-  
-  handler = Gmaps.build('Google');
-handler.buildMap({ provider: {scrollwheel: false}, internal: {id: 'map'}}, function(){
-  markers = handler.addMarkers(<%=raw @hash.to_json %>);
-  handler.bounds.extendWith(markers);
-  handler.fitMapToBounds();
-});
-  
+    var range = document.getElementById("range");
+    var filter1 = document.getElementById("filter-1");
+    var newRadius = range.innerHTML;
+
+function showValue(newValue)
+{
+	range.innerHTML=newValue;
+}
 </script>
-<style>#admin-btn {
-	display: block;
-	position: absolute;
-	top: 40px;
-	right: 40px;
-	z-index: 9000;
-}
-#admin-nav {
-	display: none;
-}
-</style>
+<p style="float: left; width: 50%; margin-top: 0">1km</p><p style="float: right; margin-top: 0;">15km</p>
+	</div>
+  <div id="reset-btns">
+    <button class="btn-small" id="showPos" onclick="showMarker();">Show Me</button>
+    <button class="btn-small" id="hidePos" onclick="clearMarker();">Hide Me</button>
+    <button class="btn-small" id="resetPos" onclick="deleteMarker(); geolocateUser(); delayedUpdateRadius();">Reset Me</button>
+  </div>
+	<div id="filter-3">
+	 <h3>Filter by Parish</h3>
+            <select name='parish' class='select' id='parish_id' autocomplete='off'>
+              <option value='any'>Any</option>
+              <option value='stHelier'>St. Helier</option>
+              <option value='stJohn'>St. John</option>
+              <option value='stMary'>St. Mary</option>
+              <option value='stBrelade'>St. Brelade</option>
+              <option value='stMartin'>St. Martin</option>
+              <option value='stOuen'>St. Ouen</option>
+              <option value='stPeter'>St. Peter</option>
+              <option value='stSaviour'>St. Saviour</option>
+              <option value='stClement'>St. Clement</option>
+              <option value='stLawrence'>St. Lawrence</option>
+              <option value='trinity'>Trinity</option>
+              <option value='grouville'>Grouville</option>
+            </select>
+    </div>
+	<div id="filter-2">
+		<h3>Filter by Products</h3>
+		<div id="col-1">
+			<h4 class="product-label">Item 1</h4>
+			<h4 class="product-label">Item 2</h4>
+			<h4 class="product-label">Item 3</h4>
+			<h4 class="product-label">Item 4</h4>
+			<h4 class="product-label">Item 5</h4>
+			<h4 class="product-label">Item 6</h4>
+			<h4 class="product-label">Item 7</h4>
+			<h4 class="product-label">Item 8</h4>
+			<h4 class="product-label">Item 9</h4>
+			<h4 class="product-label">Item 10</h4>
+		</div>
+		<div id="col-2">
+			<div class="btn-slider">	
+					<input type="checkbox" value="None" id="btn-slider-1" name="check" />
+					<label for="btn-slider-1"></label>
+				</div>
+				<div class="btn-slider">	
+					<input type="checkbox" value="None" id="btn-slider-2" name="check" />
+					<label for="btn-slider-2"></label>
+				</div>
+				<div class="btn-slider">	
+					<input type="checkbox" value="None" id="btn-slider-3" name="check" />
+					<label for="btn-slider-3"></label>
+				</div>
+				<div class="btn-slider">	
+					<input type="checkbox" value="None" id="btn-slider-4" name="check" />
+					<label for="btn-slider-4"></label>
+				</div>
+				<div class="btn-slider">	
+					<input type="checkbox" value="None" id="btn-slider-5" name="check" />
+					<label for="btn-slider-5"></label>
+				</div>
+				<div class="btn-slider">	
+					<input type="checkbox" value="None" id="btn-slider-6" name="check" />
+					<label for="btn-slider-6"></label>
+				</div>
+				<div class="btn-slider">	
+					<input type="checkbox" value="None" id="btn-slider-7" name="check" />
+					<label for="btn-slider-7"></label>
+				</div>
+				<div class="btn-slider">	
+					<input type="checkbox" value="None" id="btn-slider-8" name="check" />
+					<label for="btn-slider-8"></label>
+				</div>
+				<div class="btn-slider">	
+					<input type="checkbox" value="None" id="btn-slider-9" name="check" />
+					<label for="btn-slider-9"></label>
+				</div>
+				<div class="btn-slider">	
+					<input type="checkbox" value="None" id="btn-slider-10" name="check" />
+					<label for="btn-slider-10"></label>
+				</div>
+		</div>
+     <%= button_to "Reset Filters", root_path, :method => "get", :class => 'reset-btn' %>
+	</div>
+	</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+  handler = Gmaps.build('Google');
+	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+
+    // Define some variables so we can access them from anywhere
+    var map;
+    var userLatLng;
+    var circle;
+    var marker;
+    var drawCircle;
+    var e;
+    var valPar;
+    var stHelier;
+    var updateRadius;
+    var delayedUpdateRadius;
+  });
+
+//setting values of the selected parish
+  e = document.getElementById("parish_id");
+  valPar = e.options[e.selectedIndex].value;
+
+  document.getElementById("parish_id").addEventListener("change", function() {
+      e = document.getElementById("parish_id");
+      valPar = e.options[e.selectedIndex].value;
+  })
+//this is temporary while developing to help me see change function is called
+  $('.select').change(function() {
+    alert("change handler called!");
+  });
+
+    any = function() { 
+    handler.removeMarkers(markers);  
+    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+    stHelier = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @sth.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+
+ 
+
+
+document.getElementById("parish_id").addEventListener("change", function() {
+  if (valPar == "any") {
+    console.log("This is working!")
+    any();
+  }
+  else if (valPar == "stHelier") {
+    console.log("This is working!")
+    stHelier();
+  }
+  else {
+    console.log("don't think it's working");
+  }
+});
+
+
+  function writeAddressName(latLng) {
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({
+      "location": latLng
+    },
+    function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK)
+        document.getElementById("address").innerHTML = results[0].formatted_address;
+      else
+        document.getElementById("error").innerHTML += "Unable to retrieve your address" + "<br />";
+    });
+  }
+
+  function geolocationSuccess(position) {
+    userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    // Write the formatted address
+    writeAddressName(userLatLng);
+
+    // var mapObject = new google.maps.Map(document.getElementById("map"));
+    // console.log(mapObject);
+    // console.log(handler);
+
+   usermap = handler.map.serviceObject;
+
+    // Place the marker
+    marker = new google.maps.Marker({
+      map: usermap,
+      position: userLatLng,
+      title: 'Drag Me!',
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+    });
+
+    drawCircle = function(){
+    // Draw a circle around the user position to have an idea of the current localization accuracy
+    var options = {
+      center: userLatLng,
+      // radius: position.coords.accuracy,
+      radius: newRadius * 1000,
+      map: usermap,
+      fillColor: '#333',
+      fillOpacity: 0.5,
+      strokeColor: '#0000',
+      strokeOpacity: 1.0
+    };
+
+    circle = new google.maps.Circle(options);
+    usermap.fitBounds(circle.getBounds());
+    circle.bindTo('center', marker, 'position');
+    };
+
+      drawCircle();
+
+
+  google.maps.event.addDomListener(filter1, 'click', updateRadius);
+  };
+
+  updateRadius = function () {
+    newRadius = range.innerHTML;
+    circle.setRadius(newRadius *= 1000);
+    usermap.fitBounds(circle.getBounds());
+  }
+
+  delayedUpdateRadius = function () {
+    setTimeout(function() {updateRadius();}, 6000);
+  }
+
+  //Removing location marker and circle if user don't want it
+    function setAllMap(map) {
+      marker.setMap(map);
+    }
+    function clearMarker() {
+      circle.setMap(null);
+      setAllMap(null);
+    }
+    function showMarker() {
+      setAllMap(handler.map.serviceObject);
+      circle.setMap(handler.map.serviceObject);
+    }
+      function deleteMarker() {
+      clearMarker();
+      marker = [];
+      circle = 0;
+    }
+
+
+
+  function geolocationError(positionError) {
+    document.getElementById("error").innerHTML += "Error: " + positionError.message + "<br />";
+  }
+
+  function geolocateUser() {
+    // If the browser supports the Geolocation API
+    if (navigator.geolocation)
+    {
+      var positionOptions = {
+        enableHighAccuracy: true,
+        timeout: 10 * 1000 // 10 seconds
+      };
+      navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, positionOptions);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+      }
+    else
+      document.getElementById("error").innerHTML += "Your browser doesn't support the Geolocation API";
+  }
+  window.onload = geolocateUser;
+  google.maps.event.addDomListener(window, 'load', initialize);
+      
+</script>
+
+

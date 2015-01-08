@@ -47,7 +47,7 @@
     </select>
   </div>
   <div class="field">
-    Road name or <%= f.label :postcode %><br>(if co-ordianates are known leave this field blank)<br>
+    Road name or <%= f.label :postcode %><br>(if co-ordinates are known leave this field blank)<br>
     <%= f.text_field :postcode %>
   </div>
   <div class="field">
@@ -67,6 +67,6 @@
     <%= f.text_field :picture %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Create Vendor', :class => 'btn' %>
   </div>
 <% end %>
