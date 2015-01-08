@@ -5,6 +5,8 @@
 body, html {
 	margin: 0;
 	padding: 0;
+	width: 80%;
+	margin: 0 auto;
 }
 
 table, td, th, tr {
@@ -49,11 +51,12 @@ table {
 }
 
 #map {
-	position: fixed !important;
+	clear: both;
+	/* position: fixed !important;
     bottom: 0px !important;
     left: 0px !important;
     right: 0px !important;
-    margin-bottom: 0px !important;
+    margin-bottom: 0px !important; */
 }
 
 .btn {
