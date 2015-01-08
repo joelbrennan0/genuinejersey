@@ -81,8 +81,14 @@ table {
 	text-decoration: none;
 	padding: 10px 15px;
 	border-radius: 5px;
-	margin-left: 50px;
+	display: inline;
+	margin-bottom: 10px;
 	}
+
+.btns {
+	margin-top: 50px;
+	margin-left: 50px;
+}
 
 .table-btn {
 	background-color: #333;

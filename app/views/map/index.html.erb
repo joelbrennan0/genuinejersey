@@ -24,10 +24,11 @@ function showValue(newValue)
 </script>
 <p style="float: left; width: 50%; margin-top: 0">1km</p><p style="float: right; margin-top: 0;">15km</p>
 	</div>
-  <button id="showPos" onclick="showMarker();">Show my position</button>
-  <button id="hidePos" onclick="clearMarker();">Hide my position</button>
-  <button id="resetPos" onclick="deleteMarker(); geolocateUser(); delayedUpdateRadius();">Reset my position</button>
-  <%= button_to "Reset all filters", root_path, :method => "get" %>
+  <div id="reset-btns">
+    <button class="btn-small" id="showPos" onclick="showMarker();">Show Me</button>
+    <button class="btn-small" id="hidePos" onclick="clearMarker();">Hide Me</button>
+    <button class="btn-small" id="resetPos" onclick="deleteMarker(); geolocateUser(); delayedUpdateRadius();">Reset Me</button>
+  </div>
 	<div id="filter-3">
 	 <h3>Filter by Parish</h3>
             <select name='parish' class='select' id='parish_id' autocomplete='off'>
@@ -102,11 +103,11 @@ function showValue(newValue)
 					<label for="btn-slider-10"></label>
 				</div>
 		</div>
+     <%= button_to "Reset Filters", root_path, :method => "get", :class => 'reset-btn' %>
 	</div>
 	</div>
 	</div>
 </div>
-
 
 <script type="text/javascript">
 
