@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :admin
+  devise_for :users
     root 'map#index'
 
   resources :categories
