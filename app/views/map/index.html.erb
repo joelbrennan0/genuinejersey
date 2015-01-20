@@ -48,6 +48,7 @@ function showValue(newValue)
             </select>
     </div>
 	<div id="filter-2">
+  <%= collection_select(:user, :category_ids, Category.all, :id, :name, {}, :onchange => 'this.form.submit()') %>
 		<h3>Filter by Products</h3>
 		<div id="col-1">
 			<h4 class="product-label">Item 1</h4>
@@ -137,10 +138,6 @@ function showValue(newValue)
   document.getElementById("parish_id").addEventListener("change", function() {
       e = document.getElementById("parish_id");
       valPar = e.options[e.selectedIndex].value;
-  })
-//this is temporary while developing to help me see change function is called
-  $('.select').change(function() {
-    alert("change handler called!");
   });
 
     any = function() { 
@@ -154,24 +151,140 @@ function showValue(newValue)
     markers = handler.addMarkers(<%=raw @sth.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
+    }
+    stJohn = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @stj.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
     } 
+    stMary = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @sta.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+    stBrelade = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @stb.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+    stMartin = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @stm.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+    stOuen = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @sto.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+    stPeter = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @stp.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+    stSaviour = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @sts.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+    stClement = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @stc.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+    stLawrence = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @stl.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+    trinity = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @tri.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    } 
+    grouville = function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @gro.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    }  
 
  
 
 
 document.getElementById("parish_id").addEventListener("change", function() {
   if (valPar == "any") {
-    console.log("This is working!")
     any();
   }
   else if (valPar == "stHelier") {
-    console.log("This is working!")
     stHelier();
+  }
+  else if (valPar == "stJohn") {
+    console.log("This is working!")
+    stJohn();
+  }
+  else if (valPar == "stMary") {
+    console.log("This is working!")
+    stMary();
+  }
+  else if (valPar == "stBrelade") {
+    console.log("This is working!")
+    stBrelade();
+  }
+  else if (valPar == "stMartin") {
+    console.log("This is working!")
+    stMartin();
+  }
+  else if (valPar == "stOuen") {
+    console.log("This is working!")
+    stOuen();
+  }
+  else if (valPar == "stPeter") {
+    console.log("This is working!")
+    stPeter();
+  }
+  else if (valPar == "stSaviour") {
+    console.log("This is working!")
+    stSaviour();
+  }
+  else if (valPar == "stClement") {
+    console.log("This is working!")
+    stClement();
+  }
+  else if (valPar == "stLawrence") {
+    console.log("This is working!")
+    stLawrence();
+  }
+  else if (valPar == "trinity") {
+    console.log("This is working!")
+    trinity();
+  }
+  else if (valPar == "grouville") {
+    console.log("This is working!")
+    grouville();
   }
   else {
     console.log("don't think it's working");
   }
 });
+
+
+  document.getElementById("user_category_ids").addEventListener("change", function() {
+    handler.removeMarkers(markers); 
+    markers = handler.addMarkers(<%=raw @category_select.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+  });
 
 
   function writeAddressName(latLng) {

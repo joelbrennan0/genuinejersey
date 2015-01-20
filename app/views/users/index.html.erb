@@ -28,7 +28,7 @@
         <td class="table-entry"><%= user.parish %></td>
         <td class="table-entry"><%= user.postcode %></td>
         <td class="table-entry"><%= user.description %></td>
-        <td class="table-entry"><%= user.picture %></td>
+        <td class="table-entry"><%= user.categories.map(&:name).join(', ') %></td>
         <td class="table-btn"><%= link_to 'Show', user %></td>
         <td class="table-btn-alt"><%= link_to 'Edit', edit_user_path(user) %></td>
         <td class="table-btn"><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
