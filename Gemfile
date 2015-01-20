@@ -30,6 +30,7 @@ gem 'geocoder'
 gem 'gmaps4rails'
 gem "tzinfo-data"
 gem 'nav_lynx'
+gem 'devise'
 #gem 'strong_parameters'
 
 # Use ActiveModel has_secure_password

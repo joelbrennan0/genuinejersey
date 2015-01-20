@@ -8,7 +8,9 @@
   <link href='http://fonts.googleapis.com/css?family=Montserrat|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
+
 <div id="admin-btn"><%= button_to "Admin Login", users_path, :method => "get", :class => "btn" %></div>
+
 <nav id="admin-nav">
 <%= nav_link_to 'Full Screen Map', root_path %>
 <%= nav_link_to 'View Vendors', users_path %>
