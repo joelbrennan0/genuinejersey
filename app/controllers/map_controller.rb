@@ -9,117 +9,116 @@ class MapController < ApplicationController
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
    end
 
    @sth = Gmaps4rails.build_markers(@users.where(:parish => "Saint Helier")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "</div><br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
   @stj = Gmaps4rails.build_markers(@users.where(:parish => "St John")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
   @sta = Gmaps4rails.build_markers(@users.where(:parish => "St Mary")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
   @stb = Gmaps4rails.build_markers(@users.where(:parish => "St Brelade")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
   @stm = Gmaps4rails.build_markers(@users.where(:parish => "St Martin")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
   @sto = Gmaps4rails.build_markers(@users.where(:parish => "St Ouen")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
   @stp = Gmaps4rails.build_markers(@users.where(:parish => "St Peter")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
   @sts = Gmaps4rails.build_markers(@users.where(:parish => "St Saviour")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
   @stc = Gmaps4rails.build_markers(@users.where(:parish => "St Clement")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
   @stl = Gmaps4rails.build_markers(@users.where(:parish => "St Lawrence")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
   @tri = Gmaps4rails.build_markers(@users.where(:parish => "Trinity")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
   @gro = Gmaps4rails.build_markers(@users.where(:parish => "Grouville")) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:parish => user.parish})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
   end
 
 
 
 if params[:user].present?
 
-
     @category_select = Gmaps4rails.build_markers(@users.where(params[:user][:category_ids]  => @users.category_ids)) do |user, marker| 
     marker.lat user.latitude
     marker.lng user.longitude
     marker.json({:categories => user.categories})
-    marker.infowindow user.title + "<br>" + 
-    "<img src='#{user.picture}'>" + "<br>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
+    marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
+    "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
 
    end
  end
@@ -189,7 +188,7 @@ if params[:user].present?
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:latitude, :longitude, :title, :address, :parish, :postcode, :description, :picture, :name, :category_ids, :user_categories, :category_id => []) #:category
+      params.require(:user).permit(:latitude, :longitude, :title, :address, :parish, :postcode, :description, :picture, :name, :category_ids, :user_categories, :category_ids => []) #:category
     end
 end
 

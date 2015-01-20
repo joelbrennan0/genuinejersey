@@ -24,7 +24,6 @@ h1, h2, h3, h4 {
 	letter-spacing: 2px;
 	clear: both;
 }
-
 h3 {
 	font-weight: bold;
 }
@@ -248,8 +247,22 @@ input[type=checkbox] {
 .btn-slider input[type=checkbox]:checked + label {
 	left: 43px;
 }
+/*---------------------
+INFO WINDOW
+----------------------*/
 .gm-style .gm-style-iw {
-	max-width: 200px;
-	max-height: 100px;
+	max-width: 40vw;
+	max-height: 30vh;
 	overflow-y: scroll;
+}
+.user-title {
+	font-family: 'Montserrat', sans-serif;
+	color: red;
+	display: inline-block;
+	margin: 12px 0 0;
+}
+.info-image {
+	float: right;
+	border-left: 1px solid red;
+	padding-left: 12px
 }
