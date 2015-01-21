@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 	geocoded_by :postcode 
 	after_validation :geocode
 
+	PARISHES = ["St Helier", "St Clement", "St Saviour", "St Martin", "Grouville", "Trinity", "St John", "St Mary", "St Ouen", "St Peter", "St Lawrence", "St Brelade"].sort
 
 end
 

@@ -30,395 +30,25 @@ function showValue(newValue)
     <button class="btn-small" id="hidePos" onclick="clearMarker();">Hide Me</button>
     <button class="btn-small" id="resetPos" onclick="deleteMarker(); geolocateUser(); delayedUpdateRadius();">Reset Me</button>
   </div>
-	<div id="filter-3">
-	 <h3>Filter by Parish</h3>
-            <select name='parish' class='select' id='parish_id' autocomplete='off'>
-              <option value='any'>Any</option>
-              <option value='stHelier'>St. Helier</option>
-              <option value='stJohn'>St. John</option>
-              <option value='stMary'>St. Mary</option>
-              <option value='stBrelade'>St. Brelade</option>
-              <option value='stMartin'>St. Martin</option>
-              <option value='stOuen'>St. Ouen</option>
-              <option value='stPeter'>St. Peter</option>
-              <option value='stSaviour'>St. Saviour</option>
-              <option value='stClement'>St. Clement</option>
-              <option value='stLawrence'>St. Lawrence</option>
-              <option value='trinity'>Trinity</option>
-              <option value='grouville'>Grouville</option>
-            </select>
+
+  <%= form_tag root_path, :method => 'get' do %>
+
+  	<div id="filter-3">
+  	  <h3>Filter by Parish</h3>
+      <%= select_tag("parish", options_for_select(User::PARISHES, params[:parish]), prompt: "All", :onchange => 'this.form.submit()' ) %>
     </div>
-	<div id="filter-2">
-  <%= collection_select(:user, :category_ids, Category.all, :id, :name, {}, :onchange => 'this.form.submit()') %>
-  <%= params[:category_ids].inspect %>
-		<h3>Filter by Products</h3>
-		<div id="col-1">
-			<h4 class="product-label">Item 1</h4>
-			<h4 class="product-label">Item 2</h4>
-			<h4 class="product-label">Item 3</h4>
-			<h4 class="product-label">Item 4</h4>
-			<h4 class="product-label">Item 5</h4>
-			<h4 class="product-label">Item 6</h4>
-			<h4 class="product-label">Item 7</h4>
-			<h4 class="product-label">Item 8</h4>
-			<h4 class="product-label">Item 9</h4>
-			<h4 class="product-label">Item 10</h4>
-		</div>
-		<div id="col-2">
-			<div class="btn-slider">	
-					<input type="checkbox" value="None" id="btn-slider-1" name="check" />
-					<label for="btn-slider-1"></label>
-				</div>
-				<div class="btn-slider">	
-					<input type="checkbox" value="None" id="btn-slider-2" name="check" />
-					<label for="btn-slider-2"></label>
-				</div>
-				<div class="btn-slider">	
-					<input type="checkbox" value="None" id="btn-slider-3" name="check" />
-					<label for="btn-slider-3"></label>
-				</div>
-				<div class="btn-slider">	
-					<input type="checkbox" value="None" id="btn-slider-4" name="check" />
-					<label for="btn-slider-4"></label>
-				</div>
-				<div class="btn-slider">	
-					<input type="checkbox" value="None" id="btn-slider-5" name="check" />
-					<label for="btn-slider-5"></label>
-				</div>
-				<div class="btn-slider">	
-					<input type="checkbox" value="None" id="btn-slider-6" name="check" />
-					<label for="btn-slider-6"></label>
-				</div>
-				<div class="btn-slider">	
-					<input type="checkbox" value="None" id="btn-slider-7" name="check" />
-					<label for="btn-slider-7"></label>
-				</div>
-				<div class="btn-slider">	
-					<input type="checkbox" value="None" id="btn-slider-8" name="check" />
-					<label for="btn-slider-8"></label>
-				</div>
-				<div class="btn-slider">	
-					<input type="checkbox" value="None" id="btn-slider-9" name="check" />
-					<label for="btn-slider-9"></label>
-				</div>
-				<div class="btn-slider">	
-					<input type="checkbox" value="None" id="btn-slider-10" name="check" />
-					<label for="btn-slider-10"></label>
-				</div>
-		</div>
-     <%= button_to "Reset Filters", root_path, :method => "get", :class => 'reset-btn' %>
-	</div>
-	</div>
+
+  	<div id="filter-2">
+      <h3>Filter by Category</h3>
+      <%= select_tag("category_id", options_from_collection_for_select(Category.all, :id, :name, params[:category_id]), prompt: "All", :onchange => 'this.form.submit()') %>
+    </div>
+
+  <% end %>
+
+  <%= button_to "Reset Filters", root_path, :method => "get", :class => 'reset-btn' %>
+
 	</div>
 </div>
-
-<script type="text/javascript">
-
-  handler = Gmaps.build('Google');
-	handler.buildMap({ provider: {scrollwheel: false}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @hash.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-
-    // Define some variables so we can access them from anywhere
-    var map;
-    var userLatLng;
-    var circle;
-    var marker;
-    var drawCircle;
-    var e;
-    var valPar;
-    var stHelier;
-    var updateRadius;
-    var delayedUpdateRadius;
-  });
-
-//setting values of the selected parish
-  e = document.getElementById("parish_id");
-  valPar = e.options[e.selectedIndex].value;
-
-  document.getElementById("parish_id").addEventListener("change", function() {
-      e = document.getElementById("parish_id");
-      valPar = e.options[e.selectedIndex].value;
-  });
-
-    any = function() { 
-    handler.removeMarkers(markers);  
-    markers = handler.addMarkers(<%=raw @hash.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    } 
-    stHelier = function() {  
-    handler.removeMarkers(markers);
-    markers = handler.addMarkers(<%=raw @sth.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.map.centerOn([49.1873129, -2.1070403]);
-    handler.getMap().setZoom(14);
-    }
-    stJohn = function() {
-    handler.removeMarkers(markers);
-    markers = handler.addMarkers(<%=raw @stj.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.map.centerOn([49.2377192, -2.1420592]);
-    handler.getMap().setZoom(14);
-    } 
-    stMary = function() {
-    handler.removeMarkers(markers); 
-    markers = handler.addMarkers(<%=raw @sta.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.map.centerOn([49.2424824, -2.1769064]);
-    handler.getMap().setZoom(14);
-    } 
-    stBrelade = function() {
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @stb.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    });
-    } 
-    stMartin = function() {
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @stm.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    });
-    } 
-    stOuen = function() {
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @sto.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    });
-    } 
-    stPeter = function() {
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @stp.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    });    } 
-    stSaviour = function() {
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @sts.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    });
-    } 
-    stClement = function() {
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @stc.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    });
-    } 
-    stLawrence = function() {
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @stl.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    });
-    } 
-    trinity = function() {
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @tri.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    });
-    } 
-    grouville = function() {
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(<%=raw @gro.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    });
-    }  
-
- 
-
-
-document.getElementById("parish_id").addEventListener("change", function() {
-  if (valPar == "any") {
-    any();
-  }
-  else if (valPar == "stHelier") {
-    stHelier();
-  }
-  else if (valPar == "stJohn") {
-    console.log("This is working!")
-    stJohn();
-  }
-  else if (valPar == "stMary") {
-    console.log("This is working!")
-    stMary();
-  }
-  else if (valPar == "stBrelade") {
-    console.log("This is working!")
-    stBrelade();
-  }
-  else if (valPar == "stMartin") {
-    console.log("This is working!")
-    stMartin();
-  }
-  else if (valPar == "stOuen") {
-    console.log("This is working!")
-    stOuen();
-  }
-  else if (valPar == "stPeter") {
-    console.log("This is working!")
-    stPeter();
-  }
-  else if (valPar == "stSaviour") {
-    console.log("This is working!")
-    stSaviour();
-  }
-  else if (valPar == "stClement") {
-    console.log("This is working!")
-    stClement();
-  }
-  else if (valPar == "stLawrence") {
-    console.log("This is working!")
-    stLawrence();
-  }
-  else if (valPar == "trinity") {
-    console.log("This is working!")
-    trinity();
-  }
-  else if (valPar == "grouville") {
-    console.log("This is working!")
-    grouville();
-  }
-  else {
-    console.log("don't think it's working");
-  }
-});
-
-
-  document.getElementById("user_category_ids").addEventListener("change", function() {
-    handler.removeMarkers(markers); 
-    markers = handler.addMarkers(<%=raw @category_select.to_json %>);
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-  });
-
-
-  function writeAddressName(latLng) {
-    var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({
-      "location": latLng
-    },
-    function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK)
-        document.getElementById("address").innerHTML = results[0].formatted_address;
-      else
-        document.getElementById("error").innerHTML += "Unable to retrieve your address" + "<br />";
-    });
-  }
-
-  function geolocationSuccess(position) {
-    userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    // Write the formatted address
-    writeAddressName(userLatLng);
-
-    // var mapObject = new google.maps.Map(document.getElementById("map"));
-    // console.log(mapObject);
-    // console.log(handler);
-
-   usermap = handler.map.serviceObject;
-
-    // Place the marker
-    marker = new google.maps.Marker({
-      map: usermap,
-      position: userLatLng,
-      title: 'Drag Me!',
-      draggable: true,
-      animation: google.maps.Animation.DROP,
-    });
-
-    drawCircle = function(){
-    // Draw a circle around the user position to have an idea of the current localization accuracy
-    var options = {
-      center: userLatLng,
-      // radius: position.coords.accuracy,
-      radius: newRadius * 1000,
-      map: usermap,
-      fillColor: '#333',
-      fillOpacity: 0.5,
-      strokeColor: '#0000',
-      strokeOpacity: 1.0
-    };
-
-    circle = new google.maps.Circle(options);
-    usermap.fitBounds(circle.getBounds());
-    circle.bindTo('center', marker, 'position');
-    };
-
-      drawCircle();
-
-
-  google.maps.event.addDomListener(filter1, 'click', updateRadius);
-  };
-
-  updateRadius = function () {
-    newRadius = range.innerHTML;
-    circle.setRadius(newRadius *= 1000);
-    usermap.fitBounds(circle.getBounds());
-  }
-
-  delayedUpdateRadius = function () {
-    setTimeout(function() {updateRadius();}, 6000);
-  }
-
-  //Removing location marker and circle if user don't want it
-    function setAllMap(map) {
-      marker.setMap(map);
-    }
-    function clearMarker() {
-      circle.setMap(null);
-      setAllMap(null);
-    }
-    function showMarker() {
-      setAllMap(handler.map.serviceObject);
-      circle.setMap(handler.map.serviceObject);
-    }
-      function deleteMarker() {
-      clearMarker();
-      marker = [];
-      circle = 0;
-    }
-
-
-
-  function geolocationError(positionError) {
-    document.getElementById("error").innerHTML += "Error: " + positionError.message + "<br />";
-  }
-
-  function geolocateUser() {
-    // If the browser supports the Geolocation API
-    if (navigator.geolocation)
-    {
-      var positionOptions = {
-        enableHighAccuracy: true,
-        timeout: 10 * 1000 // 10 seconds
-      };
-      navigator.geolocation.getCurrentPosition(geolocationSuccess, geolocationError, positionOptions);
-        handler.bounds.extendWith(markers);
-        handler.fitMapToBounds();
-      }
-    else
-      document.getElementById("error").innerHTML += "Your browser doesn't support the Geolocation API";
-  }
-  window.onload = geolocateUser;
-  google.maps.event.addDomListener(window, 'load', initialize);
-      
-</script>
 
 <% if user_signed_in? %>
 
@@ -428,6 +58,18 @@ document.getElementById("parish_id").addEventListener("change", function() {
 
 <% end %>
 
+<script type="text/javascript">
+  
+  var handler = Gmaps.build('Google');
+  var markers;
+  handler.buildMap({ provider: { scrollwheel: false, center: new google.maps.LatLng(49.2, -2.02), zoom: 12
+    }, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(<%=raw @hash.to_json %>);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+  });
+
+</script>
 
 
 
