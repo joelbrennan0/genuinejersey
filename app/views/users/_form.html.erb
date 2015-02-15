@@ -47,7 +47,9 @@
     </select>
   </div>
   <div class="field">
-    Road name or <%= f.label :postcode %><br>(if co-ordinates are known leave this field blank)<br>
+    Formatted address for Geocoding (if co-ordinates are known leave this field blank)<br>
+    If vendor latitude/longitude co-ordinates are unknown enter the address formatted for google maps (without commas or special character etc.), eg:<br><br>
+    Somestreet Someparish Jersey<br>
     <%= f.text_field :postcode %>
   </div>
   <div class="field">
