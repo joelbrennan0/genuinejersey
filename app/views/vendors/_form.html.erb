@@ -1,0 +1,86 @@
+<%= form_for(@vendor) do |f| %>
+  <% if @vendor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@vendor.errors.count, "error") %> prohibited this vendor from being saved:</h2>
+
+      <ul>
+      <% @vendor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :latitude %><br>
+    <%= f.text_field :latitude %>
+  </div>
+  <div class="field">
+    <%= f.label :longitude %><br>
+    <%= f.text_field :longitude %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :parish %><br>
+    <select name="vendor[parish]">
+    <option></option>
+    <option>Saint Helier</option>
+    <option>Grouville</option>
+    <option>St Brelade</option>
+    <option>St Clement</option>
+    <option>St Clement</option>
+    <option>St John</option>
+    <option>St Lawrence</option>
+    <option>St Martin</option>
+    <option>St Mary</option>
+    <option>St Ouen</option>
+    <option>St Peter</option>
+    <option>St Saviour</option>
+    <option>Trinity</option>
+    </select>
+  </div>
+  <div class="field">
+    Formatted address for Geocoding (if co-ordinates are known leave this field blank)<br>
+    If vendor latitude/longitude co-ordinates are unknown enter the address formatted for google maps (without commas or special character etc.), eg:<br><br>
+    Somestreet Someparish Jersey<br>
+    <%= f.text_field :postcode %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= hidden_field_tag "vendor[category_ids][]", nil %>
+    <% Category.all.each do |category| %>
+      <%= check_box_tag "vendor[category_ids][]", category.id,
+       @vendor.category_ids.include?(category.id), id: dom_id(category) %>
+      <%= label_tag dom_id(category), category.name %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.label :picture %><br>
+    <%= f.text_field :picture %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_name %><br>
+    <%= f.text_field :contact_name %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_tel %><br>
+    <%= f.text_field :contact_tel %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_email %><br>
+    <%= f.text_field :contact_email %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Create Vendor', :class => 'btn' %>
+  </div>
+<% end %>

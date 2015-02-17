@@ -1,6 +1,6 @@
 class Category < ActiveRecord::Base
 	
 
-	has_many :user_categories
-	has_many :users, through: :user_categories
+	has_many :vendor_categories
+	has_many :vendors, through: :vendor_categories
 end

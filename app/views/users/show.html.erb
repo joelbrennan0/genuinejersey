@@ -1,51 +1,11 @@
-<div class="edit-container">
+
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Latitude:</strong>
-  <%= @user.latitude %>
+  <strong>Email:</strong>
+  <%= @user.email %>
 </p>
 
-<p>
-  <strong>Longitude:</strong>
-  <%= @user.longitude %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @user.title %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @user.address %>
-</p>
-
-<p>
-  <strong>Parish:</strong>
-  <%= @user.parish %>
-</p>
-
-<p>
-  <strong>Geocoded by:</strong>
-  <%= @user.postcode %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @user.description %>
-</p>
-
-<p>
-  <strong>Categories:</strong>
-  <%= @user.categories.map(&:name).join(', ') %>
-</p>
-
-<p>
-  <strong>Picture:</strong>
-  <%= @user.picture %>
-</p>
-</div>
 <div class="btns">
   <%= link_to 'Edit', edit_user_path(@user), :class => 'btn' %>
   <%= link_to 'Back', users_path, :class => 'btn' %>

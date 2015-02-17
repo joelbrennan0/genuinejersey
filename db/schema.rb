@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115181929) do
+ActiveRecord::Schema.define(version: 20150217184403) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -19,25 +19,9 @@ ActiveRecord::Schema.define(version: 20150115181929) do
     t.datetime "updated_at"
   end
 
-  create_table "user_categories", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "category_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", force: true do |t|
-    t.float    "latitude"
-    t.float    "longitude"
-    t.string   "title"
-    t.string   "address"
-    t.string   "parish"
-    t.string   "postcode"
-    t.text     "description"
-    t.string   "picture"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "gmaps"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -50,7 +34,27 @@ ActiveRecord::Schema.define(version: 20150115181929) do
     t.string   "last_sign_in_ip"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  create_table "vendor_categories", force: true do |t|
+    t.integer  "vendor_id"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vendors", force: true do |t|
+    t.string   "latitude"
+    t.string   "longitude"
+    t.string   "title"
+    t.string   "address"
+    t.string   "parish"
+    t.string   "postcode"
+    t.text     "description"
+    t.string   "picture"
+    t.string   "contact_name"
+    t.string   "contact_tel"
+    t.string   "contact_email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

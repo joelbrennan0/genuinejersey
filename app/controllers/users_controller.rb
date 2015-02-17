@@ -1,16 +1,13 @@
 class UsersController < ApplicationController
+
+  before_filter :authenticate_user!
+  
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   
   # GET /users
   # GET /users.json
   def index
     @users = User.all
-    @hash = Gmaps4rails.build_markers(@users) do |user, marker|
-    marker.lat user.latitude
-    marker.lng user.longitude
-   marker.infowindow "<h1 class='user-title'>" + user.title + "</h1>" + "<br>" + 
-      "<img src='#{user.picture}' class='info-image'>" + "<br>" + "<div class='user-description'>" + user.description + "<br>" + "Categories:  " + user.categories.map(&:name).join(', ')
-   end
   end
 
   # GET /users/1
@@ -46,7 +43,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    @user.category_ids=params[:user][:category_ids]
+    
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -76,6 +73,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:latitude, :longitude, :title, :address, :parish, :postcode, :description, :picture, :category, :name, :category_id => []) #:category, 
+      params.require(:user).permit(:email, :password, :password_confirmation) #:category, 
     end
 end

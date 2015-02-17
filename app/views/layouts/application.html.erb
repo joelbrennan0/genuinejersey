@@ -9,15 +9,23 @@
 </head>
 <body>
 
-<div id="admin-btn"><%= button_to "Admin Login", users_path, :method => "get", :class => "btn" %></div>
+<!-- <div id="admin-btn"><%= button_to "Admin Login", users_path, :method => "get", :class => "btn" %></div> -->
 
-<nav id="admin-nav">
-<%= nav_link_to 'Full Screen Map', root_path %>
-<%= nav_link_to 'View Vendors', users_path %>
-<%= nav_link_to 'New Vendor', new_user_path %>
-<%= nav_link_to 'Categories', categories_path %>
-<%= nav_link_to 'New Category', new_category_path %>
-</nav>
+<% if user_signed_in? %>
+
+	<nav id="admin-nav">
+	<%= nav_link_to 'Full Screen Map', root_path %>
+	<%= nav_link_to 'View Vendors', vendors_path %>
+	<%= nav_link_to 'New Vendor', new_vendor_path %>
+	<%= nav_link_to 'View Users', users_path %>
+	<%= nav_link_to 'New User', new_user_path %>
+	<%= nav_link_to 'Categories', categories_path %>
+	<%= nav_link_to 'New Category', new_category_path %>
+	</nav>
+
+<% end %>
+
 <%= yield %>
+
 </body>
 </html>

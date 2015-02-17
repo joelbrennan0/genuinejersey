@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :vendors
+
   devise_for :users
     root 'map#index'
 
