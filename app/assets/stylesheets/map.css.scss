@@ -10,6 +10,10 @@ body {
 	width: 100%;
 	position: relative;
 }
+#map-container {
+	width: 100%;
+	position: relative;
+}
 h1, h2, h3, h4 {
 	font-family: 'Montserrat', sans-serif;
 	font-weight: normal;
@@ -98,13 +102,13 @@ p {
 	z-index: 9000;
 }
 #sidebar {
-width: 20%;
+width: 100%;
 height:100vh;
 background: #fcfcfc;
 color: #333;
 z-index: 9000;
 overflow: scroll;
-position: absolute;
+position: relative;
 top: 0;
 left: 0;
 right: 20%;
@@ -116,7 +120,7 @@ bottom: 0;
 	color: #333;
 }
 #filter-1 {
-	width: 100%;
+	width: 90%;
 	height: 30px;
 	padding-top: 10px;
 	margin-bottom: 50px;
@@ -150,10 +154,6 @@ input[type='range'] {
 .select option {
 	font-family: 'Open Sans', sans-serif;
 
-}
-
-input[type=checkbox] {
-	visibility: hidden;
 }
 
 /* SLIDE THREE */
@@ -248,4 +248,14 @@ INFO WINDOW
 	float: right;
 	border-left: 1px solid red;
 	padding-left: 12px
+}
+@media screen and (min-width: 768px) {
+	#map-container, #admin-nav {
+	width: 80%;
+	margin-left: 20%;
+}
+	#sidebar {
+	width: 20%;
+	position: absolute;
+}
 }

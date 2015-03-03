@@ -18,7 +18,7 @@ class MapController < ApplicationController
       marker.lng vendor.longitude
       marker.json({:parish => vendor.parish})
       marker.infowindow "<h1 class='vendor-title'>" + vendor.title + "</h1>" + "<br>" + 
-      "<img src='#{vendor.picture}' class='info-image'>" + "<br>" + "<div class='vendor-description'>" + vendor.description + "<br>" + "Categories:  " + vendor.categories.map(&:name).join(', ')
+      "<img src='#{vendor.picture}' class='info-image'>" + "<br>" + "<div class='vendor-description'>"  + vendor.description + "<br>" + "Categories:  " + vendor.categories.map(&:name).join(', ')
      end
 
   end

@@ -36,7 +36,7 @@ class VendorsController < ApplicationController
   end
 
   def update
-
+    @vendor.parish=params[:parish]
     @vendor.category_ids=params[:vendor][:category_ids]
 
     if @vendor.update(vendor_params)
